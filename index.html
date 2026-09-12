@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHANGES. | Sneakers & Streetwear Local</title>
+  <meta name="description"
+    content="Catálogo exclusivo de zapatillas y ropa urbana. Consulta stock por talle en tiempo real y pide directo por WhatsApp.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Estilos Personalizados -->
+  <link rel="stylesheet" href="./src/css/styles.css">
+</head>
+
+<body class="bg-[#F4F4F4] text-zinc-800 min-h-screen flex flex-col selection:bg-black selection:text-white">
+
+  <!-- Banner Informativo / Aviso de Local Físico -->
+  <div
+    class="bg-zinc-100 border-b border-zinc-200 text-zinc-800 text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
+    <span class="w-2 h-2 rounded-full bg-zinc-800 animate-pulse"></span>
+    <span>📍 Local Abierto en Centro • Envíos a todo el pueblo y alrededores • Pedidos por WhatsApp</span>
+  </div>
+
+  <!-- Badge de Demostración (Visible si Supabase aún no está configurado) -->
+  <div id="demo-mode-badge"
+    class="hidden bg-amber-500/15 border-b border-amber-500/30 text-amber-300 text-xs py-2 px-4 text-center font-medium">
+    ⚡ <strong>Modo Demostración Activo:</strong> Mostrando catálogo con stock de prueba. Agrega tus credenciales en
+    <code>src/js/config.js</code> para conectar tu base de datos Supabase en vivo.
+  </div>
+
+  <!-- HEADER PRINCIPAL (Light Mode) -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-zinc-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+
+        <!-- Logo & Marca -->
+        <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0 group">
+          <div>
+            <span class="text-2xl font-black tracking-tight text-black">CHANGES.™</span>
+          </div>
+        </a>
+
+        <!-- Buscador Rápido (Desktop / Tablet) -->
+        <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
+          <input type="text" id="search-input" placeholder="Buscar zapatillas, buzos, modelos o talles..."
+            class="w-full bg-white border border-zinc-200 rounded-xl px-4 py-2.5 pl-11 text-sm text-zinc-800 placeholder-zinc-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" />
+          <svg class="w-4 h-4 text-zinc-500 absolute left-4 top-3.5" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+
+      </div>
+
+      <!-- Buscador para Móviles -->
+      <div class="md:hidden pb-3">
+        <div class="relative">
+          <input type="text" id="search-input-mobile" placeholder="Buscar modelos, talles..."
+            class="w-full bg-white border border-zinc-200 rounded-xl px-4 py-2 pl-10 text-sm text-zinc-800 placeholder-zinc-500 focus:outline-none focus:border-black" />
+          <svg class="w-4 h-4 text-zinc-500 absolute left-3.5 top-2.5" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Categorías Scrolleables (Pills) -->
+      <div class="flex items-center gap-2 pb-3 overflow-x-auto no-scrollbar border-t border-zinc-100 pt-2.5"
+        id="category-pills">
+        <!-- Renderizado dinámicamente por catalog.js -->
+        <button
+          class="px-4 py-1.5 rounded-full text-sm font-semibold bg-zinc-100 text-zinc-900 shadow-sm border border-zinc-200">Todos</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO / PRESENTACIÓN STREETWEAR -->
+  <section class="relative overflow-hidden border-b border-zinc-200 bg-[#F4F4F4] py-8 md:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div>
+          <span
+            class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-zinc-200 text-zinc-800 border border-zinc-300 mb-3">
+            Catálogo Oficial con Stock Real
+          </span>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-display text-black">
+            Las mejores zapas y ropa <br class="hidden sm:inline" /><span class="text-black">en tu pueblo.</span>
+          </h1>
+          <p class="mt-3 text-zinc-600 text-sm sm:text-base max-w-xl">
+            Elige tu modelo, verifica si tu talle está disponible al instante y coordina tu compra directo con nosotros
+            por WhatsApp.
+          </p>
+        </div>
+
+        <!-- Badges de confianza -->
+        <div class="flex items-center gap-3 flex-wrap">
+          <div class="bg-white border border-zinc-200 shadow-sm px-4 py-3 rounded-2xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-800">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <span class="text-xs text-zinc-500 block font-medium">Stock Garantizado</span>
+              <span class="text-sm font-bold text-black">Entrega Inmediata</span>
+            </div>
+          </div>
+
+          <div class="bg-white border border-zinc-200 shadow-sm px-4 py-3 rounded-2xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-800">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <span class="text-xs text-zinc-500 block font-medium">Atención Personal</span>
+              <span class="text-sm font-bold text-black">Por WhatsApp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL: FILTROS Y GRILLA DE PRODUCTOS -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Barra de Filtros Rápidos -->
+    <div
+      class="bg-white border border-zinc-200 shadow-sm rounded-2xl p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3 w-full md:w-auto flex-wrap">
+
+        <!-- Filtro por Talle -->
+        <div class="flex items-center gap-2">
+          <label for="filter-size-select" class="text-xs text-zinc-600 font-medium">Talle:</label>
+          <select id="filter-size-select"
+            class="bg-white border border-zinc-300 rounded-xl px-3 py-2 text-xs font-semibold text-black focus:outline-none focus:border-black">
+            <option value="all">Todos los talles</option>
+          </select>
+        </div>
+
+        <!-- Filtro por Precio Máximo -->
+        <div class="flex items-center gap-2">
+          <label for="filter-price-range" class="text-xs text-zinc-600 font-medium">Precio máx:</label>
+          <input type="range" id="filter-price-range" min="20000" max="250000" step="5000" value="250000"
+            class="accent-black w-28">
+          <span id="filter-price-display" class="text-xs font-bold text-black min-w-[70px]">Sin límite</span>
+        </div>
+
+        <!-- Botón Reset -->
+        <button id="reset-filters-btn"
+          class="text-xs text-zinc-500 hover:text-black underline underline-offset-2 transition-colors">
+          Limpiar filtros
+        </button>
+      </div>
+
+      <!-- Contador de Productos -->
+      <div class="text-xs text-zinc-600 font-medium self-end md:self-center">
+        Mostrando <span id="products-count" class="font-bold text-black">0 productos</span>
+      </div>
+    </div>
+
+    <!-- Indicador de Carga -->
+    <div id="catalog-loading" class="py-20 flex flex-col items-center justify-center gap-4 text-center">
+      <div class="w-10 h-10 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+      <span class="text-zinc-600 text-sm font-medium">Cargando catálogo en tiempo real...</span>
+    </div>
+
+    <!-- Estado Vacío -->
+    <div id="catalog-empty-state" class="hidden py-16 text-center">
+      <div
+        class="w-16 h-16 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center mx-auto mb-4 text-zinc-500">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-black">No encontramos productos</h3>
+      <p class="text-zinc-500 text-sm mt-1 max-w-sm mx-auto">
+        Prueba cambiando los filtros de talle o buscando con otros términos.
+      </p>
+    </div>
+
+    <!-- GRILLA DE PRODUCTOS -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+      <!-- Tarjetas insertadas por catalog.js -->
+    </div>
+  </main>
+
+  <!-- MODAL DE DETALLE DE PRODUCTO Y COMPRA POR WHATSAPP -->
+  <div id="product-modal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto">
+    <div
+      class="bg-white border border-zinc-200 rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl animate-fade-in relative my-8">
+
+      <!-- Botón de Cerrar -->
+      <button id="modal-close-btn"
+        class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-zinc-100 text-zinc-600 hover:text-black flex items-center justify-center transition-colors border border-zinc-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2">
+
+        <!-- Galería de Fotos -->
+        <div class="p-6 bg-[#F4F4F4] flex flex-col justify-between">
+          <div
+            class="aspect-square w-full rounded-2xl overflow-hidden bg-white border border-zinc-200 flex items-center justify-center relative shadow-sm">
+            <img id="modal-main-image" src="" alt="Producto" class="w-full h-full object-cover">
+          </div>
+
+          <!-- Miniaturas -->
+          <div id="modal-thumbnails" class="mt-4 flex items-center gap-3 overflow-x-auto pb-1 no-scrollbar">
+            <!-- Miniaturas insertadas dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Detalles, Talles y Botón WhatsApp -->
+        <div class="p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <!-- Título y Precio -->
+            <h2 id="modal-title" class="text-2xl font-extrabold text-black leading-snug">
+              Título del Producto
+            </h2>
+
+            <div class="mt-3 flex items-baseline gap-2">
+              <span id="modal-price" class="text-3xl font-extrabold text-black font-display">
+                $ 0
+              </span>
+              <span class="text-xs text-zinc-500">Precio de contado / transferencia</span>
+            </div>
+
+            <!-- Descripción -->
+            <p id="modal-description" class="mt-4 text-zinc-600 text-sm leading-relaxed border-t border-zinc-200 pt-4">
+              Descripción del producto...
+            </p>
+
+            <!-- Selector de Talles y Colores -->
+            <div class="mt-6">
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="text-xs font-bold text-black uppercase tracking-wider">Selecciona tu talle:</span>
+                <span class="text-[11px] text-zinc-500">Talles reales en stock</span>
+              </div>
+
+              <div id="modal-sizes-container" class="flex flex-wrap gap-2">
+                <!-- Talles insertados por productModal.js -->
+              </div>
+            </div>
+
+            <!-- Feedback de Stock en Vivo -->
+            <div id="modal-stock-info" class="mt-5 p-3 rounded-xl bg-zinc-50 border border-zinc-200 shadow-sm">
+              <span class="text-zinc-600 text-xs">Cargando disponibilidad...</span>
+            </div>
+          </div>
+
+          <!-- Botón de Compra por WhatsApp -->
+          <div class="mt-8 pt-6 border-t border-zinc-200">
+            <button id="modal-buy-whatsapp-btn"
+              class="w-full py-4 px-6 rounded-2xl bg-black hover:bg-zinc-800 text-white font-bold text-base flex items-center justify-center gap-3 shadow-lg shadow-black/10 active:scale-95 transition-all">
+              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                <path
+                  d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.053-2.126-.537-1.428-.59-2.348-2.04-2.42-2.137-.071-.097-.571-.762-.571-1.455 0-.693.364-1.034.494-1.175.13-.141.286-.176.381-.176.095 0 .19.002.274.006.088.004.205-.034.322.247.12.288.409 1.001.445 1.074.036.073.06.158.012.253-.047.096-.072.155-.143.238-.071.083-.15.186-.214.25-.072.072-.147.151-.063.295.084.144.372.613.799.993.549.489 1.011.641 1.155.713.143.072.227.06.311-.036.084-.096.357-.417.452-.56.096-.144.191-.12.322-.072.131.048.835.394.978.465.143.071.238.107.274.167.036.06.036.345-.108.75zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.66 1.444 5.176L2 22l4.981-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.637 0-3.153-.497-4.417-1.353l-.317-.215-2.949.771.787-2.87-.234-.333A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z" />
+              </svg>
+              <span>Comprar por WhatsApp</span>
+            </button>
+            <p class="text-center text-zinc-500 text-xs mt-2.5">
+              Se enviará un mensaje con el modelo y talle seleccionado para coordinar el pago.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER INFORMATIVO -->
+  <footer class="mt-auto border-t border-zinc-200 bg-[#F4F4F4] py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+        <!-- Columna 1: Marca -->
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xl font-extrabold tracking-tight font-display text-black">CHANGES.</span>
+          </div>
+          <p class="text-zinc-600 text-sm max-w-sm leading-relaxed">
+            La tienda de zapatillas y streetwear de confianza en nuestro pueblo. Traemos los mejores lanzamientos con
+            stock físico real y trato cercano.
+          </p>
+          <div class="mt-4 flex items-center gap-4 text-zinc-600">
+            <a href="https://instagram.com" target="_blank" class="hover:text-black transition-colors">
+              <span class="text-xs font-semibold">Instagram: @changes.oficial</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna 2: Local Físico -->
+        <div>
+          <h4 class="text-sm font-bold text-black uppercase tracking-wider mb-3">Local Físico</h4>
+          <ul class="text-zinc-600 text-sm space-y-2">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-black mt-0.5 flex-shrink-0" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Av. San Martín 450, Centro</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-black mt-0.5 flex-shrink-0" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Lun a Sáb: 10 a 13 y 16:30 a 20:30 hs</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: Enlaces rápidos -->
+        <div>
+          <h4 class="text-sm font-bold text-black uppercase tracking-wider mb-3">Accesos</h4>
+          <ul class="text-zinc-600 text-sm space-y-2">
+            <li><a href="#category-pills" class="hover:text-black transition-colors">Zapatillas</a></li>
+            <li><a href="#category-pills" class="hover:text-black transition-colors">Ropa & Hoodies</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div
+        class="mt-12 pt-6 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
+        <span>&copy; 2026 CHANGES. Todos los derechos reservados.</span>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE INICIALIZACIÓN DEL CLIENTE -->
+  <script type="module">
+    import { initCatalog } from './src/js/catalog.js';
+
+    // Sincronizar input de búsqueda móvil con desktop
+    const mobileSearch = document.getElementById('search-input-mobile');
+    const desktopSearch = document.getElementById('search-input');
+    if (mobileSearch && desktopSearch) {
+      mobileSearch.addEventListener('input', (e) => {
+        desktopSearch.value = e.target.value;
+        desktopSearch.dispatchEvent(new Event('input'));
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initCatalog();
+    });
+  </script>
+</body>
+
+</html>
