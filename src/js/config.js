@@ -26,8 +26,8 @@ export const CONFIG = {
   MOCK_DATA: {
     categories: [
       { id: 'cat-1', name: 'Zapatillas', slug: 'zapatillas' },
-      { id: 'cat-2', name: 'Ropa & Hoodies', slug: 'ropa' },
-      { id: 'cat-3', name: 'Ofertas', slug: 'ofertas' }
+      { id: 'cat-2', name: 'Ropa', slug: 'ropa' },
+      { id: 'cat-3', name: 'Promos', slug: 'ofertas' }
     ],
     products: [
       {
