@@ -38,14 +38,16 @@ export function initProductModal() {
 
 export function openProductModal(product) {
   currentProduct = product;
+  selectedVariant = null; // CORRECCIÓN: Resetea el talle al abrir un producto nuevo
+
   const modal = document.getElementById('product-modal');
   if (!modal) return;
 
   // 1. Configurar Galería de Imágenes
   const mainImage = document.getElementById('modal-main-image');
   const thumbsContainer = document.getElementById('modal-thumbnails');
-  const images = (product.image_urls && product.image_urls.length > 0) 
-    ? product.image_urls 
+  const images = (product.image_urls && product.image_urls.length > 0)
+    ? product.image_urls
     : ['https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80'];
 
   mainImage.src = images[0];
@@ -56,9 +58,8 @@ export function openProductModal(product) {
     thumbsContainer.classList.remove('hidden');
     images.forEach((imgUrl, index) => {
       const thumb = document.createElement('button');
-      thumb.className = `w-16 h-16 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
-        index === 0 ? 'border-black scale-105' : 'border-zinc-300 opacity-70 hover:opacity-100'
-      }`;
+      thumb.className = `w-16 h-16 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${index === 0 ? 'border-black scale-105' : 'border-zinc-300 opacity-70 hover:opacity-100'
+        }`;
       thumb.innerHTML = `<img src="${imgUrl}" alt="${product.title}" class="w-full h-full object-cover">`;
       thumb.addEventListener('click', () => {
         mainImage.src = imgUrl;
@@ -110,18 +111,20 @@ function renderSizeSelectors(variants) {
   const buyBtn = document.getElementById('modal-buy-whatsapp-btn');
 
   sizesContainer.innerHTML = '';
-  selectedVariant = null;
 
   if (!variants || variants.length === 0) {
+    selectedVariant = null;
     sizesContainer.innerHTML = '<span class="text-zinc-500 text-sm">Talle único o consultar por WhatsApp.</span>';
     stockInfo.innerHTML = '<span class="text-black font-semibold text-xs">● Disponible para encargo</span>';
     updateBuyButton(true, { size: 'Único', color: 'Estándar', stock: 1 });
     return;
   }
 
-  // Preseleccionar la primera variante con stock si existe
-  const firstWithStock = variants.find(v => v.stock > 0);
-  selectedVariant = firstWithStock || variants[0];
+  // CORRECCIÓN: Solo preseleccionar el primer talle si no hay uno ya seleccionado
+  if (!selectedVariant) {
+    const firstWithStock = variants.find(v => v.stock > 0);
+    selectedVariant = firstWithStock || variants[0];
+  }
 
   variants.forEach((v) => {
     const isOutOfStock = v.stock <= 0;
