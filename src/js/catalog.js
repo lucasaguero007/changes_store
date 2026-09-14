@@ -39,7 +39,7 @@ async function loadCategoriesAndProducts() {
         .from('categories')
         .select('*')
         .order('name');
-      
+
       if (catErr) throw catErr;
       allCategories = catData || [];
 
@@ -110,10 +110,9 @@ function renderCategoriesNav() {
   if (!navContainer) return;
 
   navContainer.innerHTML = `
-    <button data-cat="all" class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-      activeCategory === 'all'
-        ? 'bg-black text-white shadow-md'
-        : 'bg-white text-zinc-600 hover:text-black border border-zinc-300'
+    <button data-cat="all" class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${activeCategory === 'all'
+      ? 'bg-black text-white shadow-md'
+      : 'bg-white text-zinc-600 hover:text-black border border-zinc-300'
     }">
       Todos
     </button>
@@ -122,11 +121,10 @@ function renderCategoriesNav() {
   allCategories.forEach((cat) => {
     const btn = document.createElement('button');
     btn.dataset.cat = cat.id;
-    btn.className = `category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-      activeCategory === cat.id
+    btn.className = `category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${activeCategory === cat.id
         ? 'bg-black text-white shadow-md'
         : 'bg-white text-zinc-600 hover:text-black border border-zinc-300'
-    }`;
+      }`;
     btn.textContent = cat.name;
 
     btn.addEventListener('click', () => {
@@ -332,67 +330,65 @@ function createProductCard(product) {
       />
 
       <!-- Badge de Estado de Stock -->
-      <div class="absolute top-3.5 left-3.5">
-        ${
-          isOutOfStock
-            ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white text-zinc-500 border border-zinc-200 shadow-sm backdrop-blur-md">
+      <div class="absolute top-2 sm:top-3.5 left-2 sm:left-3.5">
+        ${isOutOfStock
+      ? `<span class="inline-flex items-center px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold bg-white text-zinc-500 border border-zinc-200 shadow-sm backdrop-blur-md">
                 Agotado
               </span>`
-            : totalStock <= 3
-            ? `<span class="badge-low-stock inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-white text-black border border-zinc-200 shadow-sm backdrop-blur-md">
+      : totalStock <= 3
+        ? `<span class="badge-low-stock inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold bg-white text-black border border-zinc-200 shadow-sm backdrop-blur-md">
                 <span class="w-1.5 h-1.5 rounded-full bg-black"></span>
-                Últimos pares
+                Últimos
               </span>`
-            : `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-black border border-zinc-200 shadow-sm backdrop-blur-md">
+        : `<span class="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-white text-black border border-zinc-200 shadow-sm backdrop-blur-md">
                 <span class="w-1.5 h-1.5 rounded-full bg-black"></span>
                 En Stock
               </span>`
-        }
+    }
       </div>
 
       <!-- Badge de Categoría -->
-      <div class="absolute top-3.5 right-3.5">
+      <div class="absolute top-2 sm:top-3.5 right-2 sm:right-3.5 hidden sm:block">
         <span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-white text-zinc-600 border border-zinc-200 shadow-sm backdrop-blur-md">
           ${categoryName}
         </span>
       </div>
     </div>
 
-    <!-- Contenido e Info -->
-    <div class="p-5 flex flex-col flex-grow justify-between">
+    <!-- Contenido e Info (CORRECCIÓN: Padding más chico en móviles p-3) -->
+    <div class="p-3 sm:p-5 flex flex-col flex-grow justify-between">
       <div>
-        <h3 class="font-bold text-black text-base leading-snug group-hover:text-zinc-600 transition-colors line-clamp-1">
+        <h3 class="font-bold text-black text-sm sm:text-base leading-snug group-hover:text-zinc-600 transition-colors line-clamp-2">
           ${product.title}
         </h3>
         
-        <!-- Preview de Talles disponibles -->
-        <div class="mt-2.5 flex items-center gap-1.5 flex-wrap">
-          ${
-            availableSizes.length > 0
-              ? availableSizes.slice(0, 4).map(s => `
+        <!-- Preview de Talles disponibles (Oculto en móviles muy chicos, visible en SM) -->
+        <div class="mt-2.5 hidden sm:flex items-center gap-1.5 flex-wrap">
+          ${availableSizes.length > 0
+      ? availableSizes.slice(0, 4).map(s => `
                   <span class="px-2 py-0.5 rounded-md bg-white text-black text-[11px] font-medium border border-zinc-300">
                     ${s}
                   </span>
                 `).join('') + (availableSizes.length > 4 ? `<span class="text-[11px] text-zinc-500 font-medium">+${availableSizes.length - 4}</span>` : '')
-              : `<span class="text-xs text-zinc-500">Sin talles en stock</span>`
-          }
+      : `<span class="text-xs text-zinc-500">Sin talles en stock</span>`
+    }
         </div>
       </div>
 
       <!-- Precio y Botón Ver -->
-      <div class="mt-5 pt-3.5 border-t border-zinc-200 flex items-center justify-between">
+      <div class="mt-3 sm:mt-5 pt-3 sm:pt-3.5 border-t border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
-          <span class="text-[11px] text-zinc-500 uppercase tracking-wider block">Precio</span>
-          <span class="text-lg font-extrabold text-black font-display">
+          <span class="text-[10px] sm:text-[11px] text-zinc-500 uppercase tracking-wider block">Precio</span>
+          <span class="text-base sm:text-lg font-extrabold text-black font-display">
             ${formatCurrency(product.price)}
           </span>
         </div>
 
         <button 
           type="button"
-          class="px-3.5 py-2 rounded-xl bg-black hover:bg-zinc-800 text-white font-bold text-xs flex items-center gap-1.5 transition-all group-hover:shadow-md group-hover:shadow-black/10">
-          <span>Ver Talles</span>
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          class="w-full sm:w-auto justify-center px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-black hover:bg-zinc-800 text-white font-bold text-xs flex items-center gap-1.5 transition-all group-hover:shadow-md group-hover:shadow-black/10">
+          <span>Ver</span>
+          <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
           </svg>
         </button>
