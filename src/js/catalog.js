@@ -6,6 +6,8 @@ import { CONFIG } from './config.js';
 import { getSupabase, isSupabaseConfigured } from './supabaseClient.js';
 import { formatCurrency, debounce, showToast } from './utils.js';
 import { initProductModal, openProductModal } from './productModal.js';
+import { initCart } from './cart.js';
+import { initFaqModal } from './faqModal.js';
 
 let allProducts = [];
 let allCategories = [];
@@ -16,6 +18,8 @@ let activeMaxPrice = null;
 
 export async function initCatalog() {
   initProductModal();
+  initCart();
+  initFaqModal();
   setupEventListeners();
 
   await loadCategoriesAndProducts();

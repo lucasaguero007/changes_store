@@ -3,6 +3,7 @@
 // ==============================================================================
 
 import { formatCurrency, generateWhatsAppLink, showToast } from './utils.js';
+import { addToCart } from './cart.js';
 
 let currentProduct = null;
 let selectedVariant = null;
@@ -38,7 +39,7 @@ export function initProductModal() {
 
 export function openProductModal(product) {
   currentProduct = product;
-  selectedVariant = null; // CORRECCIÓN: Resetea el talle al abrir un producto nuevo
+  selectedVariant = null; // Resetea el talle al abrir un producto nuevo
 
   const modal = document.getElementById('product-modal');
   if (!modal) return;
@@ -108,7 +109,6 @@ export function closeProductModal() {
 function renderSizeSelectors(variants) {
   const sizesContainer = document.getElementById('modal-sizes-container');
   const stockInfo = document.getElementById('modal-stock-info');
-  const buyBtn = document.getElementById('modal-buy-whatsapp-btn');
 
   sizesContainer.innerHTML = '';
 
@@ -120,7 +120,6 @@ function renderSizeSelectors(variants) {
     return;
   }
 
-  // CORRECCIÓN: Solo preseleccionar el primer talle si no hay uno ya seleccionado
   if (!selectedVariant) {
     const firstWithStock = variants.find(v => v.stock > 0);
     selectedVariant = firstWithStock || variants[0];
@@ -165,7 +164,6 @@ function renderSizeSelectors(variants) {
 
 function updateStockFeedbackAndButton() {
   const stockInfo = document.getElementById('modal-stock-info');
-  const buyBtn = document.getElementById('modal-buy-whatsapp-btn');
 
   if (!selectedVariant) {
     stockInfo.innerHTML = '<span class="text-zinc-500 text-sm">Selecciona un talle para ver disponibilidad</span>';
@@ -202,36 +200,59 @@ function updateStockFeedbackAndButton() {
 
 function updateBuyButton(isEnabled, variant = null) {
   const buyBtn = document.getElementById('modal-buy-whatsapp-btn');
-  if (!buyBtn) return;
+  const addCartBtn = document.getElementById('modal-add-cart-btn');
 
-  // Clonar para limpiar event listeners previos
-  const newBuyBtn = buyBtn.cloneNode(true);
-  buyBtn.parentNode.replaceChild(newBuyBtn, buyBtn);
+  if (addCartBtn) {
+    const newAddBtn = addCartBtn.cloneNode(true);
+    addCartBtn.parentNode.replaceChild(newAddBtn, addCartBtn);
 
-  if (isEnabled && variant) {
-    newBuyBtn.disabled = false;
-    newBuyBtn.className = 'w-full py-4 px-6 rounded-2xl bg-black hover:bg-zinc-800 text-white font-bold text-base flex items-center justify-center gap-3 shadow-lg shadow-black/10 active:scale-95 transition-all cursor-pointer';
-    newBuyBtn.innerHTML = `
-      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.053-2.126-.537-1.428-.59-2.348-2.04-2.42-2.137-.071-.097-.571-.762-.571-1.455 0-.693.364-1.034.494-1.175.13-.141.286-.176.381-.176.095 0 .19.002.274.006.088.004.205-.034.322.247.12.288.409 1.001.445 1.074.036.073.06.158.012.253-.047.096-.072.155-.143.238-.071.083-.15.186-.214.25-.072.072-.147.151-.063.295.084.144.372.613.799.993.549.489 1.011.641 1.155.713.143.072.227.06.311-.036.084-.096.357-.417.452-.56.096-.144.191-.12.322-.072.131.048.835.394.978.465.143.071.238.107.274.167.036.06.036.345-.108.75zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.66 1.444 5.176L2 22l4.981-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.637 0-3.153-.497-4.417-1.353l-.317-.215-2.949.771.787-2.87-.234-.333A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
-      </svg>
-      <span>Comprar por WhatsApp</span>
-    `;
-
-    newBuyBtn.addEventListener('click', () => {
-      const url = generateWhatsAppLink({
-        product: currentProduct,
-        variant: variant
+    if (isEnabled && variant) {
+      newAddBtn.disabled = false;
+      newAddBtn.className = 'w-full py-3.5 px-5 rounded-2xl bg-black hover:bg-zinc-800 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-black/10 active:scale-95 transition-all cursor-pointer';
+      newAddBtn.innerHTML = `
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+        <span>Agregar al Carrito</span>
+      `;
+      newAddBtn.addEventListener('click', () => {
+        addToCart(currentProduct, variant, 1);
+        closeProductModal();
       });
-      window.open(url, '_blank');
-      showToast('¡Abriendo WhatsApp para coordinar tu pedido!', 'success');
-    });
-  } else {
-    newBuyBtn.disabled = true;
-    newBuyBtn.className = 'w-full py-4 px-6 rounded-2xl bg-zinc-200 text-zinc-500 font-semibold text-base flex items-center justify-center gap-2 cursor-not-allowed opacity-60';
-    newBuyBtn.innerHTML = `
-      <span>Selecciona un talle disponible</span>
-    `;
+    } else {
+      newAddBtn.disabled = true;
+      newAddBtn.className = 'w-full py-3.5 px-5 rounded-2xl bg-zinc-200 text-zinc-400 font-semibold text-sm flex items-center justify-center gap-2 cursor-not-allowed opacity-60';
+      newAddBtn.innerHTML = `<span>Selecciona un talle</span>`;
+    }
+  }
+
+  if (buyBtn) {
+    const newBuyBtn = buyBtn.cloneNode(true);
+    buyBtn.parentNode.replaceChild(newBuyBtn, buyBtn);
+
+    if (isEnabled && variant) {
+      newBuyBtn.disabled = false;
+      newBuyBtn.className = 'w-full py-3 px-5 rounded-2xl bg-white hover:bg-zinc-100 text-zinc-900 border border-zinc-300 font-semibold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all cursor-pointer';
+      newBuyBtn.innerHTML = `
+        <svg class="w-4 h-4 fill-current text-emerald-600" viewBox="0 0 24 24">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.053-2.126-.537-1.428-.59-2.348-2.04-2.42-2.137-.071-.097-.571-.762-.571-1.455 0-.693.364-1.034.494-1.175.13-.141.286-.176.381-.176.095 0 .19.002.274.006.088.004.205-.034.322.247.12.288.409 1.001.445 1.074.036.073.06.158.012.253-.047.096-.072.155-.143.238-.071.083-.15.186-.214.25-.072.072-.147.151-.063.295.084.144.372.613.799.993.549.489 1.011.641 1.155.713.143.072.227.06.311-.036.084-.096.357-.417.452-.56.096-.144.191-.12.322-.072.131.048.835.394.978.465.143.071.238.107.274.167.036.06.036.345-.108.75zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.66 1.444 5.176L2 22l4.981-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.637 0-3.153-.497-4.417-1.353l-.317-.215-2.949.771.787-2.87-.234-.333A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
+        </svg>
+        <span>Comprar directo por WhatsApp</span>
+      `;
+
+      newBuyBtn.addEventListener('click', () => {
+        const url = generateWhatsAppLink({
+          product: currentProduct,
+          variant: variant
+        });
+        window.open(url, '_blank');
+        showToast('¡Abriendo WhatsApp para coordinar tu pedido!', 'success');
+      });
+    } else {
+      newBuyBtn.disabled = true;
+      newBuyBtn.className = 'w-full py-3 px-5 rounded-2xl bg-zinc-100 text-zinc-400 font-medium text-xs flex items-center justify-center gap-2 cursor-not-allowed opacity-60 border border-zinc-200';
+      newBuyBtn.innerHTML = `<span>Sin stock en este talle</span>`;
+    }
   }
 }
 
