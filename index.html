@@ -39,12 +39,35 @@
 
 <body class="bg-[#F4F4F4] text-zinc-800 min-h-screen flex flex-col selection:bg-black selection:text-white">
 
-  <!-- Banner Informativo / Aviso de Local Físico -->
-  <div
-    class="bg-zinc-100 border-b border-zinc-200 text-zinc-800 text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
-    <span class="w-2 h-2 rounded-full bg-zinc-800 animate-pulse"></span>
-    <span>📍 Local Abierto • Envíos a todo el País • Pedidos por WhatsApp</span>
+  <!-- Banner Marquesina Dinámica -->
+  <div class="bg-black text-white text-xs sm:text-sm font-medium py-2.5 overflow-hidden whitespace-nowrap border-b border-zinc-800">
+    <div class="inline-block animate-marquee whitespace-nowrap">
+      <!-- Grupo 1 -->
+      <span class="mx-4">📍 Envíos a todo el país</span> • 
+      <span class="mx-4">👟 Calidad importada premium</span> • 
+      <span class="mx-4">💬 Consultas y pedidos directos por WhatsApp</span> • 
+      <span class="mx-4">⚡ Nuevos ingresos todas las semanas</span> •
+      
+      <!-- Grupo 2 (Duplicado para el bucle infinito) -->
+      <span class="mx-4">📍 Envíos a todo el país</span> • 
+      <span class="mx-4">👟 Calidad importada premium</span> • 
+      <span class="mx-4">💬 Consultas y pedidos directos por WhatsApp</span> • 
+      <span class="mx-4">⚡ Nuevos ingresos todas las semanas</span> •
+    </div>
   </div>
+
+  <style>
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      animation: marquee 25s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+  </style>
 
   <!-- Badge de Demostración (Visible si Supabase aún no está configurado) -->
   <div id="demo-mode-badge"
