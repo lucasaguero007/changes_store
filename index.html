@@ -40,30 +40,38 @@
 <body class="bg-[#F4F4F4] text-zinc-800 min-h-screen flex flex-col selection:bg-black selection:text-white">
 
   <!-- Banner Marquesina Dinámica -->
-  <div class="bg-black text-white text-xs sm:text-sm font-medium py-2.5 overflow-hidden whitespace-nowrap border-b border-zinc-800">
+  <div
+    class="bg-black text-white text-xs sm:text-sm font-medium py-2.5 overflow-hidden whitespace-nowrap border-b border-zinc-800">
     <div class="inline-block animate-marquee whitespace-nowrap">
       <!-- Grupo 1 -->
-      <span class="mx-4">📍 Envíos a todo el país</span> • 
-      <span class="mx-4">👟 Calidad importada premium</span> • 
-      <span class="mx-4">💬 Consultas y pedidos directos por WhatsApp</span> • 
+      <span class="mx-4">📍 Envíos a todo el país</span> •
+      <span class="mx-4">👟 Calidad importada premium</span> •
+      <span class="mx-4">💬 Consultas y pedidos directos por WhatsApp</span> •
       <span class="mx-4">⚡ Nuevos ingresos todas las semanas</span> •
-      
+
       <!-- Grupo 2 (Duplicado para el bucle infinito) -->
-      <span class="mx-4">📍 Envíos a todo el país</span> • 
-      <span class="mx-4">👟 Calidad importada premium</span> • 
-      <span class="mx-4">💬 Consultas y pedidos directos por WhatsApp</span> • 
+      <span class="mx-4">📍 Envíos a todo el país</span> •
+      <span class="mx-4">👟 Calidad importada premium</span> •
+      <span class="mx-4">💬 Consultas y pedidos directos por WhatsApp</span> •
       <span class="mx-4">⚡ Nuevos ingresos todas las semanas</span> •
     </div>
   </div>
 
   <style>
     @keyframes marquee {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
+      0% {
+        transform: translateX(0%);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
+
     .animate-marquee {
       animation: marquee 25s linear infinite;
     }
+
     .animate-marquee:hover {
       animation-play-state: paused;
     }
@@ -152,7 +160,7 @@
             Catálogo Oficial con Stock Real
           </span>
           <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-display text-black">
-            Las mejores zapas y ropa <br class="hidden sm:inline" /><span class="text-black">en tu pueblo.</span>
+            No seguimos huellas , <br class="hidden sm:inline" /><span class="text-black">las dejamos .</span>
           </h1>
           <p class="mt-3 text-zinc-600 text-sm sm:text-base max-w-xl">
             Elige tu modelo, verifica si tu talle está disponible al instante y coordina tu compra directo con nosotros
@@ -529,7 +537,8 @@
           </button>
           <div
             class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
-            Aceptamos <strong>transferencia bancaria / Mercado Pago</strong> con descuento especial y <strong>efectivo
+            Aceptamos <strong>transferencia bancaria / Mercado Pago / tarjeta de credito </strong> hasta 3 cuotas sin
+            interes y en <strong>efectivo
             </strong>. Al enviar tu pedido por WhatsApp, te facilitamos el CBU o alias oficial
             para concretar la compra.
           </div>
