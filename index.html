@@ -81,7 +81,8 @@
           <button id="cart-btn-header"
             class="relative p-2.5 sm:px-4 sm:py-2.5 rounded-2xl border border-zinc-200 bg-white hover:bg-zinc-50 text-black font-semibold text-xs transition-all flex items-center gap-2 shadow-xs group cursor-pointer"
             title="Abrir Carrito de Compras">
-            <svg class="w-5 h-5 text-zinc-800 group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-zinc-800 group-hover:scale-105 transition-transform" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
@@ -305,7 +306,8 @@
             <button id="modal-add-cart-btn"
               class="w-full py-3.5 px-5 rounded-2xl bg-black hover:bg-zinc-800 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-black/10 active:scale-95 transition-all cursor-pointer">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               <span>Agregar al Carrito</span>
             </button>
@@ -353,7 +355,9 @@
         <div>
           <h4 class="text-sm font-bold text-black uppercase tracking-wider mb-3">Ayuda & Accesos</h4>
           <ul class="text-zinc-600 text-sm space-y-2">
-            <li><a href="#" class="faq-open-trigger hover:text-black font-semibold transition-colors flex items-center gap-1.5"><span>Preguntas Frecuentes (FAQ)</span></a></li>
+            <li><a href="#"
+                class="faq-open-trigger hover:text-black font-semibold transition-colors flex items-center gap-1.5"><span>Preguntas
+                  Frecuentes (FAQ)</span></a></li>
             <li><a href="#category-pills" class="hover:text-black transition-colors">Zapatillas</a></li>
             <li><a href="#category-pills" class="hover:text-black transition-colors">Ropa</a></li>
           </ul>
@@ -370,17 +374,19 @@
   </footer>
 
   <!-- CART SIDE DRAWER (PANEL LATERAL DEL CARRITO) -->
-  <div id="cart-overlay" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
+  <div id="cart-overlay"
+    class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
 
   <aside id="cart-drawer"
     class="fixed inset-y-0 right-0 z-50 max-w-md w-full bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out border-l border-zinc-200">
-    
+
     <!-- Cart Header -->
     <div class="p-5 border-b border-zinc-200 flex items-center justify-between bg-zinc-50/50">
       <div class="flex items-center gap-2.5">
         <div class="w-9 h-9 rounded-xl bg-black text-white flex items-center justify-center shadow-sm">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
         </div>
         <div>
@@ -390,10 +396,13 @@
       </div>
 
       <div class="flex items-center gap-1">
-        <button id="cart-clear-btn" class="text-xs text-zinc-400 hover:text-red-600 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer" title="Vaciar carrito">
+        <button id="cart-clear-btn"
+          class="text-xs text-zinc-400 hover:text-red-600 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+          title="Vaciar carrito">
           Vaciar
         </button>
-        <button id="cart-close-btn" class="w-9 h-9 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 hover:text-black flex items-center justify-center transition-colors cursor-pointer border border-zinc-200">
+        <button id="cart-close-btn"
+          class="w-9 h-9 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 hover:text-black flex items-center justify-center transition-colors cursor-pointer border border-zinc-200">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -405,9 +414,11 @@
     <div class="flex-grow overflow-y-auto p-5">
       <!-- Estado Vacío -->
       <div id="cart-empty-state" class="hidden py-16 text-center flex flex-col items-center justify-center">
-        <div class="w-16 h-16 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center mb-4 text-zinc-400 shadow-inner">
+        <div
+          class="w-16 h-16 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center mb-4 text-zinc-400 shadow-inner">
           <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
         </div>
         <h4 class="text-base font-bold text-black">Tu carrito está vacío</h4>
@@ -429,7 +440,8 @@
           <span>Subtotal</span>
           <span id="cart-subtotal-price" class="font-semibold text-zinc-800">$ 0</span>
         </div>
-        <div class="flex items-center justify-between text-base font-extrabold text-black pt-2 border-t border-zinc-200">
+        <div
+          class="flex items-center justify-between text-base font-extrabold text-black pt-2 border-t border-zinc-200">
           <span>Total estimado</span>
           <span id="cart-total-price" class="font-display text-xl text-black">$ 0</span>
         </div>
@@ -439,7 +451,8 @@
       <button id="cart-checkout-btn"
         class="w-full py-4 px-6 rounded-2xl bg-black hover:bg-zinc-800 text-white font-bold text-sm flex items-center justify-center gap-3 shadow-lg shadow-black/10 active:scale-95 transition-all cursor-pointer">
         <svg class="w-5 h-5 fill-current text-emerald-400" viewBox="0 0 24 24">
-          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.053-2.126-.537-1.428-.59-2.348-2.04-2.42-2.137-.071-.097-.571-.762-.571-1.455 0-.693.364-1.034.494-1.175.13-.141.286-.176.381-.176.095 0 .19.002.274.006.088.004.205-.034.322.247.12.288.409 1.001.445 1.074.036.073.06.158.012.253-.047.096-.072.155-.143.238-.071.083-.15.186-.214.25-.072.072-.147.151-.063.295.084.144.372.613.799.993.549.489 1.011.641 1.155.713.143.072.227.06.311-.036.084-.096.357-.417.452-.56.096-.144.191-.12.322-.072.131.048.835.394.978.465.143.071.238.107.274.167.036.06.036.345-.108.75zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.66 1.444 5.176L2 22l4.981-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.637 0-3.153-.497-4.417-1.353l-.317-.215-2.949.771.787-2.87-.234-.333A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
+          <path
+            d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.053-2.126-.537-1.428-.59-2.348-2.04-2.42-2.137-.071-.097-.571-.762-.571-1.455 0-.693.364-1.034.494-1.175.13-.141.286-.176.381-.176.095 0 .19.002.274.006.088.004.205-.034.322.247.12.288.409 1.001.445 1.074.036.073.06.158.012.253-.047.096-.072.155-.143.238-.071.083-.15.186-.214.25-.072.072-.147.151-.063.295.084.144.372.613.799.993.549.489 1.011.641 1.155.713.143.072.227.06.311-.036.084-.096.357-.417.452-.56.096-.144.191-.12.322-.072.131.048.835.394.978.465.143.071.238.107.274.167.036.06.036.345-.108.75zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.66 1.444 5.176L2 22l4.981-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.637 0-3.153-.497-4.417-1.353l-.317-.215-2.949.771.787-2.87-.234-.333A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z" />
         </svg>
         <span>Enviar pedido por WhatsApp</span>
       </button>
@@ -465,7 +478,8 @@
 
       <!-- Header del Modal -->
       <div class="mb-6 border-b border-zinc-100 pb-4">
-        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-zinc-100 text-black border border-zinc-200 mb-2">
+        <span
+          class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-zinc-100 text-black border border-zinc-200 mb-2">
           Centro de Ayuda
         </span>
         <h2 class="text-2xl font-extrabold text-black font-display">Preguntas Frecuentes</h2>
@@ -479,112 +493,115 @@
 
         <!-- Pregunta 1 -->
         <div class="border border-zinc-200 rounded-2xl overflow-hidden bg-white shadow-xs">
-          <button type="button" class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
+          <button type="button"
+            class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
             <span class="flex items-center gap-2.5">
               <span class="w-7 h-7 rounded-lg bg-zinc-100 flex items-center justify-center text-xs">💳</span>
               ¿Cuáles son los medios de pago aceptados?
             </span>
-            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
-            Aceptamos <strong>transferencia bancaria / Mercado Pago</strong> con descuento especial y <strong>efectivo en nuestro local físico</strong>. Al enviar tu pedido por WhatsApp, te facilitamos el CBU o alias oficial para concretar la compra.
+          <div
+            class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
+            Aceptamos <strong>transferencia bancaria / Mercado Pago</strong> con descuento especial y <strong>efectivo
+            </strong>. Al enviar tu pedido por WhatsApp, te facilitamos el CBU o alias oficial
+            para concretar la compra.
           </div>
         </div>
 
         <!-- Pregunta 2 -->
         <div class="border border-zinc-200 rounded-2xl overflow-hidden bg-white shadow-xs">
-          <button type="button" class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
+          <button type="button"
+            class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
             <span class="flex items-center gap-2.5">
               <span class="w-7 h-7 rounded-lg bg-zinc-100 flex items-center justify-center text-xs">🚚</span>
               ¿Cómo funcionan los envíos y tiempos de entrega?
             </span>
-            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
-            Realizamos envíos a <strong>todo el país</strong> mediante Correo Argentino / Andréani con seguimiento online. Si estás en la zona, podés coordinar el <strong>retiro sin costo por nuestro local físico</strong> de manera inmediata.
+          <div
+            class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
+            Realizamos envíos a <strong>todo el país</strong> mediante Correo Argentino / Andréani con seguimiento
+            online. Si estás en la zona, podés coordinar el <strong>retiro sin costo</strong> de manera inmediata.
           </div>
         </div>
 
         <!-- Pregunta 3 -->
         <div class="border border-zinc-200 rounded-2xl overflow-hidden bg-white shadow-xs">
-          <button type="button" class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
+          <button type="button"
+            class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
             <span class="flex items-center gap-2.5">
               <span class="w-7 h-7 rounded-lg bg-zinc-100 flex items-center justify-center text-xs">🔄</span>
               ¿Puedo realizar un cambio de talle?
             </span>
-            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
-            ¡Sí! Tenés hasta <strong>10 días</strong> desde recibida la compra para solicitar un cambio de talle. El producto debe encontrarse sin uso, en su caja o empaque original y con todas sus etiquetas intactas.
-          </div>
-        </div>
-
-        <!-- Pregunta 4 -->
-        <div class="border border-zinc-200 rounded-2xl overflow-hidden bg-white shadow-xs">
-          <button type="button" class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
-            <span class="flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-lg bg-zinc-100 flex items-center justify-center text-xs">📍</span>
-              ¿Dónde queda el local físico y cuáles son los horarios?
-            </span>
-            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          <div class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
-            Nuestro local se encuentra en <strong>Av. San Martín 450, Centro</strong>. Abrimos de <strong>Lunes a Sábado de 10:00 a 13:00 hs y de 16:30 a 20:30 hs</strong>. Podés acercarte a probar tu talle.
+          <div
+            class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
+            ¡Sí! Tenés hasta <strong>3 días</strong> desde recibida la compra para solicitar un cambio de talle. El
+            producto debe encontrarse sin uso, en su caja o empaque original y con todas sus etiquetas intactas.
           </div>
         </div>
 
         <!-- Pregunta 5 -->
         <div class="border border-zinc-200 rounded-2xl overflow-hidden bg-white shadow-xs">
-          <button type="button" class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
+          <button type="button"
+            class="faq-accordion-btn w-full p-4 text-left font-bold text-sm text-black flex items-center justify-between gap-4 hover:bg-zinc-50 transition-colors cursor-pointer">
             <span class="flex items-center gap-2.5">
               <span class="w-7 h-7 rounded-lg bg-zinc-100 flex items-center justify-center text-xs">👟</span>
               ¿Los productos son 100% originales con stock real?
             </span>
-            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="faq-chevron-icon w-4 h-4 text-zinc-400 transition-transform duration-200" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
-            Todos nuestros artículos son originales y seleccionados minuciosamente. El stock que ves publicado en el catálogo está sincronizado con nuestro depósito físico.
+          <div
+            class="hidden p-4 pt-0 text-xs sm:text-sm text-zinc-600 border-t border-zinc-100 bg-zinc-50/50 leading-relaxed">
+            Trabajamos con <strong>calidad importada premium</strong> (réplicas exactas de alta calidad). No son 100%
+            originales de tienda oficial, pero cuidamos cada detalle en materiales, terminaciones, suelas y etiquetas
+            para ofrecerte la mejor calidad y estética del mercado al mejor precio.
           </div>
+
+        </div>
+
+        <!-- Footer del Modal -->
+        <div class="mt-6 pt-4 border-t border-zinc-100 text-center">
+          <p class="text-xs text-zinc-500">¿Tenés otra duda? Escribinos directo por WhatsApp y te asesoramos al
+            instante.
+          </p>
         </div>
 
       </div>
-
-      <!-- Footer del Modal -->
-      <div class="mt-6 pt-4 border-t border-zinc-100 text-center">
-        <p class="text-xs text-zinc-500">¿Tenés otra duda? Escribinos directo por WhatsApp y te asesoramos al instante.</p>
-      </div>
-
     </div>
-  </div>
 
-  <!-- SCRIPT DE INICIALIZACIÓN DEL CLIENTE -->
-  <script type="module">
-    import { initCatalog } from './src/js/catalog.js';
+    <!-- SCRIPT DE INICIALIZACIÓN DEL CLIENTE -->
+    <script type="module">
+      import { initCatalog } from './src/js/catalog.js';
 
-    // Sincronizar input de búsqueda móvil con desktop
-    const mobileSearch = document.getElementById('search-input-mobile');
-    const desktopSearch = document.getElementById('search-input');
-    if (mobileSearch && desktopSearch) {
-      mobileSearch.addEventListener('input', (e) => {
-        desktopSearch.value = e.target.value;
-        desktopSearch.dispatchEvent(new Event('input'));
+      // Sincronizar input de búsqueda móvil con desktop
+      const mobileSearch = document.getElementById('search-input-mobile');
+      const desktopSearch = document.getElementById('search-input');
+      if (mobileSearch && desktopSearch) {
+        mobileSearch.addEventListener('input', (e) => {
+          desktopSearch.value = e.target.value;
+          desktopSearch.dispatchEvent(new Event('input'));
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        initCatalog();
       });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      initCatalog();
-    });
-  </script>
+    </script>
 </body>
 
 </html>
